@@ -19,7 +19,16 @@ export function useProposal() {
       setError(null);
 
       try {
+        const currentDate = new Date().toLocaleDateString('en-GB', {
+          day: '2-digit',
+          month: 'long',
+          year: 'numeric',
+        });
+
         const fullPrompt = `${GENERATION_SYSTEM_PROMPT}
+
+---
+**CRITICAL INSTRUCTION**: The current date is ${currentDate}. You MUST use exactly "${currentDate}" wherever the date is required, especially replacing {{DATE}}.
 
 ---
 ## CLIENT DATA JSON
@@ -32,11 +41,14 @@ Generate the full proposal HTML now. Output ONLY the HTML — no markdown fences
         const html = await generateProposal(fullPrompt);
 
         // Strip any accidental markdown fences
-        const cleaned = html
+        let cleaned = html
           .replace(/^```html\s*/i, '')
           .replace(/^```\s*/i, '')
           .replace(/```\s*$/i, '')
           .trim();
+
+        // Fallback: Replace {{DATE}} if AI missed it
+        cleaned = cleaned.replace(/\{\{DATE\}\}/g, currentDate);
 
         setProposalHtml(cleaned);
 
