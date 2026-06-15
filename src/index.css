@@ -1,0 +1,1005 @@
+/* ============================================================
+   Proposal Generator Agent — Atoms Digital Solutions
+   LiquidEther dark theme — neutral glassmorphic UI
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&display=swap');
+
+/* ── Reset & Base ──────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: 'Inter', 'Roboto', sans-serif;
+  background: transparent;
+  color: #e8e8f0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ── App Root ──────────────────────────────────────────────── */
+.app-root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* ── Header ────────────────────────────────────────────────── */
+.app-header {
+  background: rgba(10, 10, 10, 0.70);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 18px 24px;
+  text-align: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.60);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.header-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.brand-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.3px;
+}
+
+.brand-suffix {
+  display: none;
+}
+
+.brand-icon {
+  display: none;
+}
+
+.header-tagline {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.45);
+  font-weight: 400;
+}
+
+.header-right {
+  display: none;
+}
+
+.header-badge {
+  display: none;
+}
+
+.header-version {
+  display: none;
+}
+
+/* ── Main Layout ───────────────────────────────────────────── */
+.app-main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  gap: 20px;
+  /* Extra padding so the cards visually float away from the edges */
+  padding: 20px 24px 24px;
+}
+
+/* ── Pane base (shared structural) ────────────────────────── */
+.pane {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ── Glass-card overlay (applied to both panes) ────────────── */
+/*    Specs: translucent dark fill, frosted blur, 24px corners,  */
+/*    1px semi-transparent glass-edge border + top-edge shine   */
+.glass-card {
+  background: rgba(12, 12, 16, 0.65);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.70),
+    0 8px 24px rgba(0, 0, 0, 0.50),
+    inset 0 1px 0 rgba(255, 255, 255, 0.10),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.04);
+  transition: box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+  box-shadow:
+    0 24px 72px rgba(0, 0, 0, 0.75),
+    0 10px 30px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.pane-chat {
+  width: 380px;
+  min-width: 350px;
+}
+
+.pane-proposal {
+  flex: 1;
+}
+
+/* ── Chat Interface ────────────────────────────────────────── */
+.chat-interface {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Chat Header — top corners match the card's 24px radius */
+.chat-header {
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 24px 24px 0 0;
+}
+
+.chat-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.chat-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #c8c8d8;
+  text-align: center;
+  width: 100%;
+}
+
+.chat-status {
+  display: none;
+}
+
+.ai-avatar-large {
+  display: none;
+}
+
+.chat-header-right {
+  display: none;
+}
+
+.refinement-badge {
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 20px;
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+  color: #856404;
+  margin-left: auto;
+}
+
+/* Step Progress — hide it (not in reference) */
+.step-progress {
+  display: none;
+}
+
+/* Messages Area */
+.messages-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: transparent;
+}
+
+.messages-area::-webkit-scrollbar {
+  width: 4px;
+}
+
+.messages-area::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.messages-area::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+
+/* Message Bubbles — framer-motion spring handles entry */
+.message-wrapper {
+  display: flex;
+  flex-direction: column;
+  /* animation removed — framer-motion owns entry now */
+}
+
+.message-user {
+  align-items: flex-end;
+}
+
+.message-assistant {
+  align-items: flex-start;
+}
+
+.avatar {
+  display: none;
+}
+
+.message-bubble {
+  max-width: 90%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.bubble-assistant {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  color: #e0e0ee;
+  border-top-left-radius: 2px;
+}
+
+.bubble-user {
+  background: rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  color: #d8d8f0;
+  border-top-right-radius: 2px;
+}
+
+.message-text {
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: inherit;
+}
+
+.message-text strong {
+  font-weight: 600;
+}
+
+/* Typing Indicator bubble wrapper */
+.typing-bubble {
+  display: flex;
+  align-items: center;
+  /* Dot animation removed — replaced by Lottie player */
+}
+
+/* Error Banner */
+.error-banner {
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: #ffebee;
+  border: 1px solid #ffcdd2;
+  color: #c62828;
+  font-size: 0.8rem;
+}
+
+/* Generate CTA */
+.generate-cta {
+  padding: 0 14px 14px;
+  flex-shrink: 0;
+}
+
+.btn-generate {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  color: rgba(255, 255, 255, 0.40);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s;
+  letter-spacing: 0.2px;
+  backdrop-filter: blur(8px);
+}
+
+.btn-generate:not(:disabled) {
+  background: #1a73e8;
+  border-color: #1a73e8;
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(26, 115, 232, 0.40);
+}
+
+.btn-generate:hover:not(:disabled) {
+  background: #1557b0;
+  transform: translateY(-1px);
+}
+
+.btn-generate:disabled {
+  cursor: not-allowed;
+}
+
+.refinement-hint {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.35);
+  text-align: center;
+  margin-top: 6px;
+}
+
+/* Chat Input Area */
+.chat-input-area {
+  padding: 12px 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 6px 8px;
+  transition: border-color 0.2s;
+}
+
+.input-wrapper:focus-within {
+  border-color: rgba(255, 255, 255, 0.30);
+}
+
+.chat-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #e8e8f0;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  resize: none;
+  max-height: 80px;
+  overflow-y: auto;
+  padding: 2px 4px;
+}
+
+.chat-input::placeholder {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.btn-send {
+  padding: 6px 16px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  white-space: nowrap;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  backdrop-filter: blur(8px);
+}
+
+.btn-send:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.20);
+  transform: translateY(-1px);
+}
+
+.btn-send:disabled {
+  opacity: 0.30;
+  cursor: not-allowed;
+}
+
+.btn-send svg {
+  display: none;
+}
+
+.input-hint {
+  display: none;
+}
+
+/* Spinner */
+.btn-spinner {
+  width: 13px;
+  height: 13px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ── Proposal Viewer ───────────────────────────────────────── */
+.proposal-viewer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Placeholder */
+.proposal-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 14px;
+  padding: 32px;
+  text-align: center;
+  background: transparent;
+  border-radius: 24px;
+}
+
+.placeholder-icon {
+  font-size: 3rem;
+  opacity: 0.35;
+}
+
+.placeholder-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #c8c8d8;
+}
+
+.placeholder-desc {
+  font-size: 0.875rem;
+  color: rgba(200, 200, 220, 0.55);
+  max-width: 340px;
+  line-height: 1.7;
+}
+
+.placeholder-steps {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.step-badge {
+  padding: 5px 12px;
+  border-radius: 20px;
+  background: #e8eaf6;
+  border: 1px solid #c5cae9;
+  font-size: 0.75rem;
+  color: #3f51b5;
+  font-weight: 500;
+}
+
+.step-arrow {
+  color: #9e9e9e;
+}
+
+/* Generating state */
+.generating {
+  background: transparent;
+}
+
+.generation-spinner {
+  position: relative;
+  width: 60px;
+  height: 60px;
+}
+
+.spinner-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  animation: spin 1.5s linear infinite;
+}
+
+.spinner-ring:nth-child(1) {
+  border-top-color: #3f51b5;
+}
+
+.spinner-ring:nth-child(2) {
+  inset: 10px;
+  border-top-color: #7986cb;
+  animation-duration: 1.1s;
+  animation-direction: reverse;
+}
+
+.spinner-ring:nth-child(3) {
+  inset: 20px;
+  border-top-color: #c5cae9;
+  animation-duration: 0.8s;
+}
+
+.generation-text {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #c8c8d8;
+}
+
+.generation-subtext {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+/* Proposal Toolbar — top corners match the card's 24px radius */
+.proposal-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 24px 24px 0 0;
+  flex-shrink: 0;
+}
+
+.toolbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.toolbar-label {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.70);
+}
+
+.toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.export-error {
+  font-size: 0.75rem;
+  color: #ff8a80;
+}
+
+.export-success {
+  font-size: 0.75rem;
+  color: #a5d6a7;
+}
+
+.btn-toolbar {
+  padding: 6px 14px;
+  border-radius: 5px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.15s;
+}
+
+.btn-print {
+  background: white;
+  border: 1px solid #c5cae9;
+  color: #555;
+}
+
+.btn-print:hover {
+  background: #e8eaf6;
+  border-color: #9fa8da;
+}
+
+.btn-export {
+  background: #1a73e8;
+  border: none;
+  color: white;
+}
+
+.btn-export:hover:not(:disabled) {
+  background: #1557b0;
+}
+
+.btn-export:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Proposal Content Area */
+.proposal-scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px 28px;
+  background: transparent;
+}
+
+.proposal-scroll-area::-webkit-scrollbar {
+  width: 5px;
+}
+
+.proposal-scroll-area::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.proposal-scroll-area::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+
+/* Proposal document styles */
+.proposal-content {
+  max-width: 700px;
+  margin: 0 auto;
+  font-family: 'Inter', sans-serif;
+  color: #e8e8f0;
+  background: rgba(10, 10, 14, 0.70);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 10px;
+  padding: 28px 32px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.proposal-content .proposal-header {
+  text-align: center;
+  padding-bottom: 24px;
+  margin-bottom: 24px;
+  border-bottom: 2px solid #1a237e;
+}
+
+.proposal-content .agency-name {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1a237e;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.proposal-content .agency-tagline {
+  font-size: 0.9rem;
+  color: #555;
+  font-style: italic;
+}
+
+.proposal-content .proposal-meta {
+  margin-top: 10px;
+}
+
+.proposal-content .proposal-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a237e;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.proposal-content .proposal-date {
+  font-size: 0.8rem;
+  color: #777;
+  margin-top: 4px;
+}
+
+.proposal-content .proposal-section {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.proposal-content .section-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1a237e;
+  margin-bottom: 10px;
+  text-decoration: underline;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.proposal-content h1 {
+  font-size: 1.3rem;
+  color: #1a237e;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.proposal-content h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a237e;
+  margin-bottom: 8px;
+  text-decoration: underline;
+}
+
+.proposal-content h3 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #283593;
+  margin-bottom: 6px;
+}
+
+.proposal-content p {
+  font-size: 0.875rem;
+  line-height: 1.8;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.proposal-content ul,
+.proposal-content ol {
+  padding-left: 20px;
+  margin-bottom: 10px;
+}
+
+.proposal-content li {
+  font-size: 0.875rem;
+  line-height: 1.8;
+  color: #333;
+  margin-bottom: 3px;
+}
+
+.proposal-content .deliverables-table,
+.proposal-content .pricing-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px auto;
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+.proposal-content .deliverables-table th,
+.proposal-content .pricing-table th {
+  background: #1a237e;
+  color: white;
+  padding: 10px 14px;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.proposal-content .deliverables-table td,
+.proposal-content .pricing-table td {
+  padding: 9px 14px;
+  border-bottom: 1px solid #e4e7f0;
+  color: #333;
+}
+
+.proposal-content .deliverables-table tr:nth-child(even) td,
+.proposal-content .pricing-table tr:nth-child(even) td {
+  background: #f5f6ff;
+}
+
+.proposal-content .pricing-table tfoot td {
+  font-weight: 700;
+  color: #1a237e;
+  background: #e8eaf6;
+}
+
+.proposal-content .proposal-footer {
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 2px solid #1a237e;
+  text-align: center;
+}
+
+.proposal-content .proposal-footer p {
+  font-size: 0.78rem;
+  color: #555;
+  margin-bottom: 3px;
+}
+
+.proposal-content .footer-note {
+  font-size: 0.7rem !important;
+  color: #999 !important;
+}
+
+/* ── Right panel header ─────────────────────────────────────── */
+.proposal-panel-header {
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  text-align: center;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.03);
+  /* top corners match the glass card's 24px radius */
+  border-radius: 24px 24px 0 0;
+}
+
+.proposal-panel-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #c8c8d8;
+}
+
+/* ── Mobile Responsiveness ─────────────────────────────────── */
+@media (max-width: 850px) {
+  body {
+    overflow: auto;
+  }
+
+  .app-root {
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .app-main {
+    flex-direction: column;
+    padding: 16px 16px 32px;
+    overflow: visible;
+    gap: 24px;
+  }
+
+  .pane-chat {
+    width: 100%;
+    min-width: 0;
+    height: 70vh;
+    flex: none;
+  }
+
+  .pane-proposal {
+    width: 100%;
+    min-height: 80vh;
+    flex: none;
+  }
+
+  .brand-name {
+    font-size: 1.25rem;
+  }
+
+  .header-tagline {
+    font-size: 0.75rem;
+  }
+
+  .app-header {
+    padding: 14px 16px;
+  }
+
+  /* ── Performance Optimization ──
+     Disable expensive blurs to fix scroll lag on mobile over WebGL */
+  .glass-card,
+  .app-header,
+  .proposal-content,
+  .proposal-toolbar,
+  .proposal-panel-header,
+  .chat-header {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* Compensate with near-solid backgrounds since blur is gone */
+  .glass-card {
+    background: rgba(12, 12, 16, 0.95);
+  }
+
+  .app-header {
+    background: rgba(10, 10, 10, 0.98);
+  }
+
+  .proposal-content {
+    background: rgba(10, 10, 14, 0.98);
+  }
+}
+
+/* ── PDF Export Mode (html2pdf) ────────────────────────────── */
+.pdf-export-mode {
+  background: white !important;
+  color: black !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  max-width: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.pdf-export-mode * {
+  color: black !important;
+}
+
+.pdf-export-mode .agency-name,
+.pdf-export-mode .proposal-label,
+.pdf-export-mode h1,
+.pdf-export-mode h2,
+.pdf-export-mode .section-title {
+  color: #1a237e !important;
+}
+
+/* ── Print ─────────────────────────────────────────────────── */
+@media print {
+
+  /* Setting page margin to 0 tricks the browser into disabling the 
+     default Date, Title, URL, and Page Numbers from printing. */
+  @page {
+    margin: 0;
+  }
+
+  /* 1. FORCE HIDE EVERYTHING NOT NEEDED */
+  .pane-chat,
+  .app-header,
+  .proposal-toolbar,
+  .chat-header,
+  .proposal-panel-header,
+  .liquid-ether-container,
+  canvas,
+  [style*="position: fixed"],
+  [style*="position:fixed"] {
+    display: none !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+
+  /* 2. UN-TRAP SCROLLING (Allow multi-page print) */
+  html,
+  body,
+  #root,
+  .app-root,
+  .app-main,
+  .pane-proposal,
+  .proposal-viewer,
+  .proposal-scroll-area,
+  .state-panel {
+    height: auto !important;
+    min-height: auto !important;
+    overflow: visible !important;
+    position: static !important;
+    display: block !important;
+    background: white !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* 3. STYLE THE ACTUAL CONTENT */
+  .proposal-content {
+    display: block !important;
+    position: static !important;
+    background: white !important;
+    color: black !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 1.5cm 2cm !important;
+    /* Page margins */
+    margin: 0 !important;
+    max-width: none !important;
+    border-radius: 0 !important;
+  }
+
+  .proposal-content * {
+    color: black !important;
+  }
+
+  /* Retain brand colours for headings */
+  .proposal-content .agency-name,
+  .proposal-content .proposal-label,
+  .proposal-content h1,
+  .proposal-content h2,
+  .proposal-content .section-title {
+    color: #1a237e !important;
+  }
+
+  /* Prevent awkward page breaks */
+  .proposal-section,
+  .deliverables-table,
+  .pricing-table {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    margin-bottom: 20px !important;
+  }
+}
