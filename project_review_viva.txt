@@ -1,0 +1,79 @@
+================================================================================
+PROJECT PROPOSAL GENERATOR - OVERALL REVIEW & VIVA PREPARATION
+================================================================================
+
+1. OVERALL REVIEW OF THE PROJECT
+--------------------------------------------------------------------------------
+The Project Proposal Generator is an AI-powered web application designed to automate and streamline the creation of professional business and project proposals. It leverages advanced Generative AI (Google Gemini) to draft customized proposal content based on user inputs. The application features a modern, interactive, and highly dynamic user interface utilizing 3D graphics and complex animations, providing a premium user experience. It allows users to generate, preview, manage, and export their proposals (e.g., as PDF documents), while persisting user data securely in a backend database (Supabase).
+
+2. TECH STACK AND USES OF EACH
+--------------------------------------------------------------------------------
+* Frontend Framework & Build Tool:
+  - React: Used for building the component-based user interface and handling the client-side state.
+  - Vite: Acts as the build tool and development server, offering fast Hot Module Replacement (HMR) and optimized production builds.
+
+* Artificial Intelligence:
+  - @google/generative-ai (Google Gemini API): The core AI engine responsible for generating the intelligent text and structure of the project proposals based on user prompts.
+
+* Backend & Database:
+  - @supabase/supabase-js: Provides the backend-as-a-service (BaaS), handling user authentication, secure database storage for generated proposals, and API communication.
+
+* UI/UX, Animations, & 3D Graphics:
+  - framer-motion: Used for fluid, declarative animations and page transitions across the React application.
+  - @react-spring/web: Adds spring-physics based animations for interactive elements.
+  - three: A 3D library used to render dynamic WebGL 3D graphics and interactive visual backgrounds.
+  - @lottiefiles/dotlottie-react: Used to render lightweight, scalable Lottie animations for loading states and UI feedback.
+
+* Document Export & Utility:
+  - html2pdf.js: Captures the rendered HTML proposal and converts it into a downloadable PDF document for the user.
+  - file-saver: Used to save the generated PDF files to the user's local machine.
+  - uuid: Generates unique identifiers for proposals and database records.
+
+* Development Tools:
+  - ESLint: Used for identifying and fixing code patterns, ensuring code quality and consistency.
+
+
+3. INFORMATION FOR VIVA PURPOSE
+--------------------------------------------------------------------------------
+* Objective: To demonstrate the integration of Large Language Models (LLMs) into a modern web application to solve a real-world productivity problem (document creation).
+* Architecture: Client-Server architecture where the React frontend communicates with the Supabase backend for data persistence, and makes external API calls to Google's Generative AI for content generation.
+* Key Features:
+  - AI-driven content generation tailored to specific project requirements.
+  - Real-time preview of the generated proposal.
+  - High-end interactive UI with 3D elements (Three.js) and complex animations.
+  - PDF export functionality.
+  - Cloud database integration for saving history.
+* Potential Viva Questions:
+  1. Why did you choose Vite over Create React App? (Answer: Faster dev server start, quicker HMR, better modern build optimization).
+  2. How does the AI generation work? (Answer: We construct a specialized prompt combining user inputs with our system prompt template and send it to the Google Gemini API).
+  3. How is user data stored? (Answer: We use Supabase, an open-source Firebase alternative, which provides a Postgres database to store user and proposal details).
+  4. How are the PDFs generated? (Answer: Using html2pdf.js, which captures the DOM nodes of the proposal preview and renders them into a canvas/PDF).
+
+
+================================================================================
+DAILY REPORTING FORMAT
+================================================================================
+
+Name: 
+Project: Project Proposal Generator
+
+Where did you start today?
+[Provide a brief description of the tasks or goals you picked up at the start of the day]
+
+Where did you end up today?
+[Summarize what was actually accomplished, completed features, or progress made]
+
+What are key challenges faced?
+- 1. 
+- 2. 
+- 3. 
+
+Key learnings of the day
+- 1. 
+- 2. 
+- 3. 
+
+Support required from Mentor for certain issues
+- Issue 1: 
+- Issue 2: 
+- Issue 3: 
