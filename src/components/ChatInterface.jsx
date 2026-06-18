@@ -3,6 +3,7 @@
 // ============================================================
 
 import React, { useState, useRef, useEffect } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import ChatMessage from './ChatMessage';
 import TypingIndicator from './TypingIndicator';
 
@@ -75,7 +76,9 @@ export default function ChatInterface({
         {messages.map((msg, idx) => (
           <ChatMessage key={idx} message={msg} />
         ))}
-        {isTyping && <TypingIndicator />}
+        <AnimatePresence>
+          {isTyping && <TypingIndicator key="typing-indicator" />}
+        </AnimatePresence>
         {error && (
           <div className="error-banner">⚠️ {error}</div>
         )}

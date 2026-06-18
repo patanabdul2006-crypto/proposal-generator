@@ -16,6 +16,8 @@ function formatContent(text) {
 // High stiffness + low damping = fast initial travel that gently
 // overshoots and snaps back ("bungee" feel). originX mirrors the
 // alignment so the bubble scales from its natural anchor point.
+// delay: AI messages wait 120ms so the TypingIndicator exit animation
+// finishes first — this eliminates the white flicker between states.
 const bubbleVariants = {
   hidden: (isUser) => ({
     opacity: 0,
@@ -23,7 +25,7 @@ const bubbleVariants = {
     scale: 0.88,
     originX: isUser ? 1 : 0,  // scale from right for user, left for AI
   }),
-  visible: {
+  visible: (isUser) => ({
     opacity: 1,
     y: 0,
     scale: 1,
@@ -32,8 +34,9 @@ const bubbleVariants = {
       stiffness: 380,  // fast, snappy travel
       damping: 22,     // slight overshoot before settling
       mass: 0.75,
+      delay: isUser ? 0 : 0.12,  // AI messages wait for typing indicator to exit
     },
-  },
+  }),
 };
 
 export default function ChatMessage({ message }) {
