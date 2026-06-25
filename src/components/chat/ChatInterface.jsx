@@ -1,5 +1,6 @@
 // ============================================================
-// ChatInterface — matches reference UI exactly
+// ChatInterface — Full-featured chat with message actions
+// Sidebar is now persistent at the App level (Gemini layout)
 // ============================================================
 
 import React, { useState, useRef, useEffect } from 'react';
@@ -17,6 +18,10 @@ export default function ChatInterface({
   onSendMessage,
   onGenerateProposal,
   onReset,
+  onEditMessage,
+  onDeleteMessage,
+  onNewChat,
+  onOpenPromptPanel,
 }) {
   const [input, setInput] = useState('');
   const messagesEndRef = useRef(null);
@@ -49,7 +54,7 @@ export default function ChatInterface({
   return (
     <div className="chat-interface">
 
-      {/* Panel label */}
+      {/* Panel header */}
       <div className="chat-header">
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
           <h2 className="chat-title">Conversation</h2>
@@ -57,15 +62,20 @@ export default function ChatInterface({
             {isRefinementMode && (
               <span className="refinement-badge">✏️ Refining</span>
             )}
+            {/* System prompt button */}
             <button
-              onClick={onReset}
-              title="New proposal"
-              style={{
-                background: 'none', border: '1px solid #c5cae9', borderRadius: '5px',
-                padding: '4px 10px', fontSize: '0.72rem', color: '#666', cursor: 'pointer'
-              }}
+              className="btn-header-icon"
+              onClick={() => onOpenPromptPanel?.()}
+              title="System Prompt"
             >
-              New
+              ⚙️
+            </button>
+            <button
+              onClick={onNewChat || onReset}
+              title="New proposal"
+              className="btn-header-new"
+            >
+              + New
             </button>
           </div>
         </div>
@@ -74,7 +84,13 @@ export default function ChatInterface({
       {/* Messages */}
       <div className="messages-area">
         {messages.map((msg, idx) => (
-          <ChatMessage key={idx} message={msg} />
+          <ChatMessage
+            key={idx}
+            message={msg}
+            index={idx}
+            onEdit={msg.role === 'user' ? onEditMessage : undefined}
+            onDelete={msg.role === 'user' ? onDeleteMessage : undefined}
+          />
         ))}
         <AnimatePresence>
           {isTyping && <TypingIndicator key="typing-indicator" />}
