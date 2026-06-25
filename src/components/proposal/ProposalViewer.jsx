@@ -6,6 +6,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { saveAs } from 'file-saver';
+import atomLogo from '../../assets/atomlogo.png';
 
 // ── Shared page-transition variants ──────────────────────────
 // Exit:  current state shrinks slightly and fades out
@@ -173,7 +174,7 @@ export default function ProposalViewer({ proposalHtml, isGenerating, proposalJso
                   <motion.div
                     key={i}
                     variants={{
-                      hidden:  { opacity: 0, y: 12 },
+                      hidden: { opacity: 0, y: 12 },
                       visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 300, damping: 22 } },
                     }}
                     className={item === '→' ? 'step-arrow' : 'step-badge'}
@@ -233,8 +234,8 @@ export default function ProposalViewer({ proposalHtml, isGenerating, proposalJso
                   <button className="btn-toolbar btn-print" onClick={handlePrint}>
                     🖨️ Print / PDF
                   </button>
-                  <button 
-                    className="btn-toolbar btn-export" 
+                  <button
+                    className="btn-toolbar btn-export"
                     onClick={handleDownloadWord}
                     disabled={isExporting}
                   >
@@ -249,10 +250,30 @@ export default function ProposalViewer({ proposalHtml, isGenerating, proposalJso
 
               {/* Proposal content */}
               <div className="proposal-scroll-area">
-                <div
-                  className="proposal-content"
-                  dangerouslySetInnerHTML={{ __html: proposalHtml }}
-                />
+                <table className="print-layout-table">
+                  <thead className="print-layout-header">
+                    <tr>
+                      <td>
+                        <div className="print-only-header">
+                          <div className="print-header-brand">
+                            <img src={atomLogo} alt="Atoms Logo" className="print-logo" />
+                            <span className="print-brand-name">Atoms Digital Solutions</span>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <div
+                          className="proposal-content"
+                          dangerouslySetInnerHTML={{ __html: proposalHtml }}
+                        />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </StatePanel>

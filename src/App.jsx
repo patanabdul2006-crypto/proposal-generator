@@ -12,12 +12,14 @@ import LiquidEther from './components/ui/LiquidEther';
 import SystemPromptPanel from './components/layout/SystemPromptPanel';
 import ChatSidebar from './components/layout/ChatSidebar';
 import AnimatedLogo from './components/layout/AnimatedLogo';
+import atomLogo from './assets/atomlogo.png';
 import { useChat } from './hooks/useChat';
 import { useProposal } from './hooks/useProposal';
 
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
   const [promptPanelOpen, setPromptPanelOpen] = useState(false);
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const { generate, proposalHtml, isGenerating, error: proposalError, clearProposal } = useProposal();
 
   const latestChatState = useRef({ conversationHistory: [], sessionId: null, proposalJson: null });
@@ -91,18 +93,32 @@ export default function App() {
 
         {/* Persistent collapsible sidebar */}
         <ChatSidebar
+          isOpen={isMobileSidebarOpen}
+          onClose={() => setIsMobileSidebarOpen(false)}
           chatList={chatList}
           currentChatId={currentChatId}
           onNewChat={handleReset}
           onLoadChat={loadSavedChat}
           onDeleteChat={deleteChat}
         />
+        
+        {/* Mobile Sidebar Backdrop */}
+        {isMobileSidebarOpen && (
+          <div className="sidebar-backdrop" onClick={() => setIsMobileSidebarOpen(false)} />
+        )}
 
         {/* Right side: header + main panes */}
         <div className="app-body">
           {/* Header */}
           <header className="app-header">
             <div className="header-brand">
+              <button 
+                className="mobile-menu-toggle" 
+                onClick={() => setIsMobileSidebarOpen(true)}
+                title="Open Menu"
+              >
+                <span className="material-symbols-outlined">menu</span>
+              </button>
               <AnimatedLogo />
               <div className="header-text-container">
                 <span className="brand-name">Proposal Generator Agent</span>
@@ -139,6 +155,24 @@ export default function App() {
               />
             </div>
           </main>
+
+          {/* Main App Footer */}
+          <footer className="app-main-footer" style={{
+            textAlign: 'center',
+            padding: '8px 0',
+            fontSize: '0.75rem',
+            color: 'rgba(255,255,255,0.4)',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: '6px',
+            backgroundColor: 'rgba(10,10,10,0.5)',
+            borderTop: '1px solid rgba(255,255,255,0.05)'
+          }}>
+            <span>© 2026 All rights reserved | </span>
+            <img src={atomLogo} alt="Atoms Logo" style={{ width: '12px', height: '12px', filter: 'grayscale(100%) opacity(0.7)' }} />
+            <span>Atoms Digital Solutions</span>
+          </footer>
         </div>
       </div>
 

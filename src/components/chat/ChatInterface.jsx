@@ -24,11 +24,13 @@ export default function ChatInterface({
   onOpenPromptPanel,
 }) {
   const [input, setInput] = useState('');
-  const messagesEndRef = useRef(null);
+  const messagesContainerRef = useRef(null);
   const inputRef = useRef(null);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+    }
   }, [messages, isTyping]);
 
   useEffect(() => {
@@ -82,7 +84,7 @@ export default function ChatInterface({
       </div>
 
       {/* Messages */}
-      <div className="messages-area">
+      <div className="messages-area" ref={messagesContainerRef}>
         {messages.map((msg, idx) => (
           <ChatMessage
             key={idx}
@@ -98,7 +100,6 @@ export default function ChatInterface({
         {error && (
           <div className="error-banner">⚠️ {error}</div>
         )}
-        <div ref={messagesEndRef} />
       </div>
 
       {/* Input row */}
