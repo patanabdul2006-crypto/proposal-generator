@@ -16,6 +16,8 @@ import atomLogo from './assets/atomlogo.png';
 import { useChat } from './hooks/useChat';
 import { useProposal } from './hooks/useProposal';
 
+const LIQUID_COLORS = ['#ffc040', '#ff6b00', '#d900ff', '#ff0055', '#7b2cbf'];
+
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
   const [promptPanelOpen, setPromptPanelOpen] = useState(false);
@@ -72,7 +74,7 @@ export default function App() {
       {/* ── LiquidEther WebGL fluid background ── */}
       <div style={{ position: 'fixed', inset: 0, zIndex: -1, background: '#0a0a0a' }}>
         <LiquidEther
-          colors={['#ffc040', '#ff6b00', '#d900ff', '#ff0055', '#7b2cbf']}
+          colors={LIQUID_COLORS}
           mouseForce={40}
           cursorSize={160}
           resolution={0.5}

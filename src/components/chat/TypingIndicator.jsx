@@ -1,19 +1,10 @@
 // ============================================================
-// TypingIndicator — LottieFiles dotLottie animation
-// Replaces the CSS/framer-motion bouncing dots with the Lottie
-// animation selected from lottie.host (React integration)
+// TypingIndicator — Custom CSS "AI is thinking" animation
+// Replaces the Lottie animation with a custom pure CSS wave
 // ============================================================
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { DotLottieReact } from '@lottiefiles/dotlottie-react';
-
-// ── Asset URL from LottieFiles (React › Handoff panel) ────────
-// Format: dotLottie (.lottie) hosted on lottie.host CDN
-// NOTE: The URL below is taken from the visible portion of your
-//       LottieFiles handoff panel. If the animation doesn't load,
-//       copy the full "Asset link" from the panel and paste it here.
-const LOTTIE_SRC = 'https://lottie.host/1d257b02-92ce-463a-aee7-d92f42b78ebd/9LTAnlIPzq.lottie';
 
 export default function TypingIndicator() {
   return (
@@ -25,30 +16,11 @@ export default function TypingIndicator() {
       exit={{ opacity: 0, y: 6, scale: 0.95 }}
       transition={{ type: 'spring', stiffness: 300, damping: 24 }}
     >
-      {/* No avatar shown — consistent with existing chat style */}
-      <div className="bubble-assistant typing-bubble" style={bubbleStyle}>
-        <DotLottieReact
-          src={LOTTIE_SRC}
-          loop
-          autoplay
-          style={lottieStyle}
-        />
+      <div className="ai-thinking-container">
+        <span className="ai-dot dot-left"></span>
+        <span className="ai-dot dot-center"></span>
+        <span className="ai-dot dot-right"></span>
       </div>
     </motion.div>
   );
 }
-
-// ── Inline styles ─────────────────────────────────────────────
-// Constrain the Lottie player so it fits naturally inside the
-// existing chat bubble without extra whitespace.
-const bubbleStyle = {
-  padding: '4px 10px',
-  display: 'flex',
-  alignItems: 'center',
-  minHeight: 48,
-};
-
-const lottieStyle = {
-  width: 80,
-  height: 48,
-};

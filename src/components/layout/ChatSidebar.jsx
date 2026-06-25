@@ -83,12 +83,32 @@ export default function ChatSidebar({
   const searchInputRef = useRef(null);
 
   // When the external "open" signal fires (e.g. hamburger inside chat pane),
-  // always expand the sidebar
+  // always expand the sidebar. If it becomes false (e.g. backdrop clicked),
+  // close the sidebar on mobile.
   useEffect(() => {
-    if (isOpen) setExpanded(true);
+    if (isOpen) {
+      setExpanded(true);
+    } else {
+      if (window.innerWidth <= 850) {
+        setExpanded(false);
+      }
+    }
   }, [isOpen]);
 
-  const toggle = () => setExpanded((v) => !v);
+  const toggle = () => {
+    setExpanded((v) => {
+      const next = !v;
+      if (!next) onClose(); // Hide mobile backdrop if collapsing
+      return next;
+    });
+  };
+
+  const handleActionClose = () => {
+    if (window.innerWidth <= 850) {
+      setExpanded(false);
+      onClose();
+    }
+  };
 
   const handleSearchClick = () => {
     if (!expanded) {
@@ -117,7 +137,7 @@ export default function ChatSidebar({
         {/* "New chat" pencil icon — only visible in expanded state */}
         <button
           className="gs-icon-btn gs-icon-btn--expanded-only"
-          onClick={onNewChat}
+          onClick={() => { onNewChat(); handleActionClose(); }}
           title="New chat"
           aria-label="New chat"
         >
@@ -128,7 +148,7 @@ export default function ChatSidebar({
       {/* ── New Chat button ───────────────────────── */}
       <div className="gs-new-chat-wrap">
         <Tooltip label="New chat">
-          <button className="gs-new-chat-btn" onClick={onNewChat} aria-label="New chat">
+          <button className="gs-new-chat-btn" onClick={() => { onNewChat(); handleActionClose(); }} aria-label="New chat">
             <Icon name="add" size={22} className="gs-new-chat-icon" />
             <span className="gs-label">New chat</span>
           </button>
@@ -188,7 +208,7 @@ export default function ChatSidebar({
                         isActive={chat.chatId === currentChatId}
                         isHovered={hoveredId === chat.chatId}
                         onHover={setHoveredId}
-                        onLoad={onLoadChat}
+                        onLoad={(id) => { onLoadChat(id); handleActionClose(); }}
                         onDelete={onDeleteChat}
                         expanded={true}
                       />
