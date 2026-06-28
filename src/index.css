@@ -1071,11 +1071,11 @@ body {
 
 .sysprompt-panel {
   position: fixed;
-  top: 10%;
+  top: 50%;
   left: 50%;
   width: 640px;
-  max-width: 90vw;
-  max-height: 80vh;
+  max-width: 95vw;
+  max-height: 85vh;
   display: flex;
   flex-direction: column;
   transform: translate(-50%, -50%);
@@ -1967,6 +1967,11 @@ body {
 
   .proposal-content {
     background: rgba(255, 255, 255, 0.98);
+    padding: 16px 16px !important;
+  }
+
+  .proposal-scroll-area {
+    padding: 12px 12px;
   }
 }
 
