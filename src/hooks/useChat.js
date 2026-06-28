@@ -19,7 +19,7 @@ const JSON_REGEX = /<PROPOSAL_JSON>([\s\S]*?)<\/PROPOSAL_JSON>/;
 const WELCOME_MESSAGE = {
   role: 'assistant',
   content:
-    "Hi! I am the Proposal Generator Agent. I will help you collect client details and generate a proposal.\n\nPlease share the client's name, type (Hospital or Doctor), city, and what services they need — you can tell me everything at once or I'll guide you step by step.",
+    "Hi! I am the Proposal Generator Agent. I will help you collect client details and generate a proposal.\n\nYou can tell me everything at once or I'll guide you step by step. If you'd like to provide all details in a single message, you can copy and paste this format:\n\n`Client Name:`\n`Type (Hospital/Doctor):`\n`City:`\n`Speciality (if Doctor):`\n`Package (Standard/Custom):`\n`Platforms:`\n`Add-ons:`",
 };
 
 // ── Filler patterns to strip from AI responses ────────────────

@@ -6,10 +6,66 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 function formatContent(text) {
-  return text
-    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.*?)\*/g, '<em>$1</em>')
-    .replace(/\n/g, '<br />');
+  const lines = text.split('\n');
+  let html = '';
+  let inUl = false;
+  let inOl = false;
+
+  const closeList = () => {
+    if (inUl) { html += '</ul>'; inUl = false; }
+    if (inOl) { html += '</ol>'; inOl = false; }
+  };
+
+  const inlineFormat = (line) =>
+    line
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.*?)\*/g, '<em>$1</em>')
+      .replace(/`([^`]+)`/g, '<code>$1</code>');
+
+  for (const rawLine of lines) {
+    const line = rawLine.trim();
+
+    // Empty line — close any open list, add spacing
+    if (!line) {
+      closeList();
+      html += '<br />';
+      continue;
+    }
+
+    // Heading: ### Title
+    const headingMatch = line.match(/^(#{1,4})\s+(.+)$/);
+    if (headingMatch) {
+      closeList();
+      const level = headingMatch[1].length;
+      html += `<strong class="chat-heading chat-h${level}">${inlineFormat(headingMatch[2])}</strong><br />`;
+      continue;
+    }
+
+    // Unordered list: - item or * item (not bold **)
+    const ulMatch = line.match(/^[-•]\s+(.+)$/);
+    if (ulMatch) {
+      if (inOl) { html += '</ol>'; inOl = false; }
+      if (!inUl) { html += '<ul class="chat-list">'; inUl = true; }
+      html += `<li>${inlineFormat(ulMatch[1])}</li>`;
+      continue;
+    }
+
+    // Ordered list: 1. item
+    const olMatch = line.match(/^\d+[.)]\s+(.+)$/);
+    if (olMatch) {
+      if (inUl) { html += '</ul>'; inUl = false; }
+      if (!inOl) { html += '<ol class="chat-list">'; inOl = true; }
+      html += `<li>${inlineFormat(olMatch[1])}</li>`;
+      continue;
+    }
+
+    // Regular line
+    closeList();
+    html += inlineFormat(line) + '<br />';
+  }
+
+  closeList();
+  return html;
 }
 
 // ── Spring variant ────────────────────────────────────────────

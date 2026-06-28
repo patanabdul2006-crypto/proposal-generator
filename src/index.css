@@ -295,6 +295,34 @@ body {
   font-weight: 600;
 }
 
+.chat-heading {
+  display: block;
+  font-weight: 700;
+  color: #fff;
+  margin-top: 8px;
+  margin-bottom: 4px;
+}
+
+.chat-h1, .chat-h2 { font-size: 1.05rem; }
+.chat-h3, .chat-h4 { font-size: 0.95rem; }
+
+.chat-list {
+  margin: 4px 0 10px 0;
+  padding-left: 20px;
+}
+
+.chat-list li {
+  margin-bottom: 4px;
+}
+
+.message-text code {
+  font-family: monospace;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+
 /* ── Custom AI Thinking Animation ──────────────────────────── */
 .ai-thinking-container {
   display: flex;
@@ -2225,12 +2253,29 @@ body {
     break-after: avoid;
   }
 
+  /* Allow lists to break across pages — preventing this causes massive
+     whitespace gaps when a long list can't fit on the current page */
   ul,
-  ol,
+  ol {
+    page-break-inside: auto;
+    break-inside: auto;
+  }
+
+  /* Keep individual items and paragraphs together (they're small enough) */
   li,
   p {
     page-break-inside: avoid;
     break-inside: avoid;
+  }
+
+  /* Prevent orphaned headings — keep heading with at least some content after it */
+  h3 + .section-subtitle,
+  h3 + ul,
+  h3 + ol,
+  h4 + ul,
+  h4 + ol {
+    page-break-before: avoid;
+    break-before: avoid;
   }
 }
 

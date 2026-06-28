@@ -54,10 +54,17 @@ export default function App() {
   } = useChat({ onProposalJsonReady: handleProposalJsonReady });
 
   const handleGenerateProposal = useCallback(() => {
-    const { proposalJson: json, sessionId: sid, conversationHistory: history } = latestChatState.current;
+    const { proposalJson: refJson, sessionId: sid, conversationHistory: history } = latestChatState.current;
+    // Prefer the React state proposalJson (always the latest from useChat)
+    // over the ref which may be stale if a refinement didn't trigger onProposalJsonReady
+    const json = proposalJson || refJson;
     if (!json) return;
-    generate({ proposalJson: json, sessionId: sid, conversationHistory: history });
-  }, [generate]);
+    generate({
+      proposalJson: json,
+      sessionId: sid || currentChatId,
+      conversationHistory: history?.length ? history : messages,
+    });
+  }, [generate, proposalJson, currentChatId, messages]);
 
   const handleReset = useCallback(() => {
     newChat();

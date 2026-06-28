@@ -97,7 +97,7 @@ export default function ProposalViewer({ proposalHtml, isGenerating, proposalJso
         'h4 { font-size: 11pt; font-weight: bold; color: #333333; margin-bottom: 4px; margin-top: 12px; page-break-after: avoid; break-after: avoid; }',
         '.section-subtitle { font-size: 10pt; color: #555555; font-style: italic; margin-bottom: 10px; }',
         'p { font-size: 11pt; line-height: 1.6; color: #333333; margin-bottom: 10px; text-align: left; page-break-inside: avoid; break-inside: avoid; }',
-        'ul, ol { padding-left: 20px; margin-bottom: 10px; text-align: left; }',
+        'ul, ol { padding-left: 20px; margin-bottom: 10px; text-align: left; page-break-inside: auto; break-inside: auto; }',
         'li { font-size: 11pt; line-height: 1.6; color: #333333; margin-bottom: 3px; page-break-inside: avoid; break-inside: avoid; }',
         '.pricing-line { font-size: 14pt; font-weight: bold; color: #1a237e; margin: 20px 0 6px 0; padding: 12px 16px; background-color: #e8eaf6; border-left: 4px solid #1a237e; }',
         '.pricing-note { font-size: 10pt; color: #666666; font-style: italic; }',
